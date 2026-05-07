@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, sans-serif;
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply font-sans text-stone-800 bg-white;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

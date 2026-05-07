@@ -1,0 +1,96 @@
+# GROQ Queries — Site Michel Gauthier
+# Ces queries définissent le contrat entre Sanity CMS et le frontend Next.js.
+# Paramètre $today : string ISO "YYYY-MM-DD" injecté côté serveur.
+
+# ─────────────────────────────────────────────
+# PAGE ACCUEIL
+# ─────────────────────────────────────────────
+
+# Récupérer les données de l'artiste (singleton)
+QUERY_ARTISTE =
+*[_type == "artiste"][0] {
+  photo {
+    asset-> { _id, url, metadata { dimensions } },
+    hotspot,
+    crop,
+    alt
+  },
+  biographie
+}
+
+# ─────────────────────────────────────────────
+# PAGE GALERIE
+# ─────────────────────────────────────────────
+
+# Toutes les œuvres (triées par date de création décroissante)
+QUERY_OEUVRES_ALL =
+*[_type == "oeuvre"] | order(_createdAt desc) {
+  _id,
+  titre,
+  section,
+  description,
+  image {
+    asset-> { _id, url, metadata { dimensions } },
+    hotspot,
+    crop,
+    alt
+  }
+}
+
+# Œuvres filtrées par section (paramètre $section : "terre" | "neige" | "mer")
+QUERY_OEUVRES_BY_SECTION =
+*[_type == "oeuvre" && section == $section] | order(_createdAt desc) {
+  _id,
+  titre,
+  section,
+  description,
+  image {
+    asset-> { _id, url, metadata { dimensions } },
+    hotspot,
+    crop,
+    alt
+  }
+}
+
+# ─────────────────────────────────────────────
+# PAGE EXPOSITIONS
+# ─────────────────────────────────────────────
+
+# Expositions à venir (date >= aujourd'hui, triées par date ascendante)
+# Paramètre $today : "YYYY-MM-DD"
+QUERY_EXPOSITIONS_A_VENIR =
+*[_type == "exposition" && date >= $today] | order(date asc) {
+  _id,
+  titre,
+  date,
+  lieu
+}
+
+# Expositions passées (date < aujourd'hui, triées par date descendante)
+QUERY_EXPOSITIONS_PASSEES =
+*[_type == "exposition" && date < $today] | order(date desc) {
+  _id,
+  titre,
+  date,
+  lieu
+}
+
+# Distinctions (triées par année décroissante, puis par _createdAt)
+QUERY_DISTINCTIONS =
+*[_type == "distinction"] | order(annee desc, _createdAt desc) {
+  _id,
+  titre,
+  annee,
+  description
+}
+
+# ─────────────────────────────────────────────
+# PAGE CONTACT
+# ─────────────────────────────────────────────
+
+# Coordonnées de contact (singleton)
+QUERY_CONTACT =
+*[_type == "contact"][0] {
+  email,
+  telephone
+}
