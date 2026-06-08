@@ -53,6 +53,15 @@ export interface Distinction {
   description?: string
 }
 
+export interface Article {
+  _id: string
+  titre: string
+  publication: string
+  date: string
+  description?: string
+  url?: string
+}
+
 export interface Contact {
   email: string
   telephone: string

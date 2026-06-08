@@ -61,6 +61,17 @@ export const QUERY_DISTINCTIONS = groq`
   }
 `
 
+export const QUERY_ARTICLES = groq`
+  *[_type == "article"] | order(date desc) {
+    _id,
+    titre,
+    publication,
+    date,
+    description,
+    url
+  }
+`
+
 export const QUERY_CONTACT = groq`
   *[_type == "contact"][0] {
     email,

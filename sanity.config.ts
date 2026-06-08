@@ -29,6 +29,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('exposition').title('Expositions'),
             S.documentTypeListItem('distinction').title('Distinctions'),
+            S.documentTypeListItem('article').title('Articles de presse'),
             S.divider(),
             S.listItem()
               .title('Contact')
