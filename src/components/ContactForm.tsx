@@ -1,13 +1,25 @@
 'use client'
 
-import { useActionState, useRef } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
 import { sendContactEmail, type ContactFormState } from '@/app/actions/contact'
 
 const initialState: ContactFormState = { status: 'idle' }
 
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="px-8 py-3 bg-or text-bordeaux-dark font-sans text-sm tracking-widest uppercase font-semibold rounded hover:bg-or-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {pending ? 'Envoi en cours…' : 'Envoyer le message'}
+    </button>
+  )
+}
+
 export default function ContactForm() {
-  const [state, action, pending] = useActionState(sendContactEmail, initialState)
-  const formRef = useRef<HTMLFormElement>(null)
+  const [state, action] = useFormState(sendContactEmail, initialState)
 
   if (state.status === 'success') {
     return (
@@ -21,7 +33,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form ref={formRef} action={action} className="space-y-5">
+    <form action={action} className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label htmlFor="nom" className="block text-xs tracking-widest uppercase text-or-dark mb-2">
@@ -87,13 +99,7 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="px-8 py-3 bg-or text-bordeaux-dark font-sans text-sm tracking-widest uppercase font-semibold rounded hover:bg-or-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {pending ? 'Envoi en cours…' : 'Envoyer le message'}
-      </button>
+      <SubmitButton />
     </form>
   )
 }
