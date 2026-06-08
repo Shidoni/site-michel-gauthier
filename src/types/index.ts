@@ -29,7 +29,7 @@ export interface Artiste {
   biographie: PortableTextBlock[]
 }
 
-export type OeuvreSection = 'terre' | 'neige' | 'mer'
+export type OeuvreSection = 'terre' | 'neige' | 'mer' | 'interieur'
 
 export interface Oeuvre {
   _id: string

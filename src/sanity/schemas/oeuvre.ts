@@ -17,9 +17,10 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Terre', value: 'terre' },
-          { title: 'Neige', value: 'neige' },
-          { title: 'Mer', value: 'mer' },
+          { title: 'Terre',     value: 'terre' },
+          { title: 'Neige',     value: 'neige' },
+          { title: 'Mer',       value: 'mer' },
+          { title: 'Intérieur', value: 'interieur' },
         ],
         layout: 'radio',
       },
@@ -54,7 +55,7 @@ export default defineType({
       media: 'image',
     },
     prepare({ title, subtitle, media }) {
-      const labels: Record<string, string> = { terre: 'Terre', neige: 'Neige', mer: 'Mer' }
+      const labels: Record<string, string> = { terre: 'Terre', neige: 'Neige', mer: 'Mer', interieur: 'Intérieur' }
       return {
         title,
         subtitle: labels[subtitle] || subtitle,
