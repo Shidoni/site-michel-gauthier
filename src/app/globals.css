@@ -13,16 +13,10 @@
   }
 
   body {
-    @apply font-sans text-stone-800 bg-white;
+    @apply font-sans bg-bordeaux-dark text-creme;
   }
 
   h1, h2, h3, h4 {
     @apply font-serif;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }

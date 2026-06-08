@@ -18,9 +18,11 @@ export default async function ContactPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      <div className="max-w-md">
-        <h1 className="font-serif text-4xl font-light text-stone-900 mb-12">Contact</h1>
+    <div className="max-w-4xl mx-auto px-6 py-10">
+      <h1 className="font-serif text-4xl text-or font-light mb-8 pb-4 border-b border-or-dark">
+        Contact
+      </h1>
+      <div className="max-w-sm">
         <ContactInfo contact={contact} />
       </div>
     </div>

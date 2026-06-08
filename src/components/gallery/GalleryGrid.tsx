@@ -20,25 +20,25 @@ export default function GalleryGrid({ oeuvres }: { oeuvres: Oeuvre[] }) {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="mb-10">
-          <h1 className="font-serif text-4xl font-light text-stone-900 mb-6">Galerie</h1>
-          <SectionFilter
-            activeSection={activeSection}
-            onSectionChange={setActiveSection}
-          />
+      <div className="max-w-4xl mx-auto px-6 py-10">
+        <div className="mb-8">
+          <h1 className="font-serif text-4xl text-or font-light mb-2">Galerie</h1>
+          <div className="border-b border-bordeaux-light pb-6">
+            <SectionFilter
+              activeSection={activeSection}
+              onSectionChange={setActiveSection}
+            />
+          </div>
         </div>
 
         {filtered.length === 0 ? (
-          <div className="text-center py-24 text-stone-400">
-            <p className="font-serif text-xl">Aucune œuvre dans cette section</p>
+          <div className="text-center py-20 text-or-dark">
+            <p className="font-serif text-xl italic">Aucune œuvre dans cette section</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone-200">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
             {filtered.map((oeuvre) => (
-              <div key={oeuvre._id} className="bg-white">
-                <ArtworkCard oeuvre={oeuvre} onClick={setSelectedOeuvre} />
-              </div>
+              <ArtworkCard key={oeuvre._id} oeuvre={oeuvre} onClick={setSelectedOeuvre} />
             ))}
           </div>
         )}
