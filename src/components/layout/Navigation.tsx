@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -12,17 +13,41 @@ const links = [
 
 export default function Navigation() {
   const pathname = usePathname()
+  const [open, setOpen] = useState(false)
 
   return (
     <header>
-      <div className="bg-bordeaux-dark py-4 px-6 text-center border-b border-bordeaux-light">
-        <Link href="/" className="font-serif text-3xl text-creme tracking-wide hover:text-or transition-colors">
+      {/* Titre */}
+      <div className="bg-bordeaux-dark py-4 px-6 flex items-center justify-between border-b border-bordeaux-light">
+        <Link
+          href="/"
+          className="font-serif text-3xl text-creme tracking-wide hover:text-or transition-colors"
+          onClick={() => setOpen(false)}
+        >
           Michel Gauthier
         </Link>
+
+        {/* Bouton hamburger — mobile uniquement */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden flex flex-col gap-1.5 p-2 text-or"
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+        >
+          {open ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          )}
+        </button>
       </div>
 
-      <nav className="bg-bordeaux-nav border-b border-or-dark">
-        <ul className="max-w-4xl mx-auto flex items-center justify-center gap-0">
+      {/* Navigation desktop */}
+      <nav className="hidden md:block bg-bordeaux-nav border-b border-or-dark">
+        <ul className="max-w-4xl mx-auto flex items-center justify-center">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
@@ -39,6 +64,29 @@ export default function Navigation() {
           ))}
         </ul>
       </nav>
+
+      {/* Menu mobile */}
+      {open && (
+        <nav className="md:hidden bg-bordeaux-nav border-b border-or-dark">
+          <ul>
+            {links.map(({ href, label }) => (
+              <li key={href} className="border-b border-bordeaux-light last:border-0">
+                <Link
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className={`block px-6 py-4 font-sans text-sm tracking-widest uppercase transition-colors ${
+                    pathname === href
+                      ? 'text-or'
+                      : 'text-creme hover:text-or'
+                  }`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   )
 }
