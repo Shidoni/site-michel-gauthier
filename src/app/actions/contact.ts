@@ -34,8 +34,8 @@ export async function sendContactEmail(
 
   try {
     const resend = new Resend(apiKey)
-    await resend.emails.send({
-      from: 'Formulaire contact <contact@michelgauthier-jorrand.fr>',
+    const { error } = await resend.emails.send({
+      from: 'Formulaire contact <onboarding@resend.dev>',
       to: destination,
       replyTo: email,
       subject: sujet ? `[Contact] ${sujet}` : `[Contact] Message de ${nom}`,
@@ -47,6 +47,10 @@ export async function sendContactEmail(
         <p style="white-space:pre-wrap">${message.replace(/</g, '&lt;')}</p>
       `,
     })
+
+    if (error) {
+      return { status: 'error', message: 'Une erreur est survenue lors de l\'envoi. Réessayez ou contactez directement par email.' }
+    }
 
     return { status: 'success' }
   } catch {
