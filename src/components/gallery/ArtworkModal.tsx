@@ -26,7 +26,10 @@ export default function ArtworkModal({ oeuvre, isOpen, onClose }: ArtworkModalPr
 
   if (!isOpen || !oeuvre) return null
 
-  const imageUrl = urlForImage(oeuvre.image).width(1200).height(1200).fit('max').url()
+  const dims = oeuvre.image.asset?.metadata?.dimensions
+  const imgW = dims?.width ?? 1200
+  const imgH = dims?.height ?? 1200
+  const imageUrl = urlForImage(oeuvre.image).width(1200).fit('max').url()
 
   return (
     <div
@@ -50,14 +53,14 @@ export default function ArtworkModal({ oeuvre, isOpen, onClose }: ArtworkModalPr
         className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl w-full max-h-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative flex-shrink-0 max-h-[70vh] max-w-full lg:max-w-2xl">
+        <div className="relative flex-shrink-0 max-h-[80vh] max-w-full lg:max-w-2xl">
           <Image
             src={imageUrl}
             alt={oeuvre.image.alt || oeuvre.titre}
-            width={900}
-            height={900}
-            className="object-contain max-h-[70vh] w-auto"
-            style={{ maxHeight: '70vh' }}
+            width={imgW}
+            height={imgH}
+            className="object-contain max-h-[80vh] w-auto"
+            style={{ maxHeight: '80vh' }}
           />
         </div>
 
